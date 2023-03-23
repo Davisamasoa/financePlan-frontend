@@ -1,0 +1,28 @@
+import Link from "next/link";
+
+export default function HeaderNoAuth() {
+	return (
+		<header className="w-full h-20 flex justify-between items-center">
+			<Link href="/">
+				<h1 className="sm:text-4xl text-2xl font-bold">
+					finance<span className="text-primaryColor">Plan</span>
+				</h1>
+			</Link>
+
+			<div className="flex justify-end items-center gap-3">
+				<Link
+					className="border-2 border-primaryColor py-1 px-6 rounded-full hover:bg-primaryColor hover:text-bgColor transition duration-300 sm:text-base text-sm"
+					href="/login"
+				>
+					Entrar
+				</Link>
+				<Link
+					className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full hover:bg-bgColor hover:text-textColor  transition duration-300 sm:text-base text-sm"
+					href="/register"
+				>
+					Cadastrar
+				</Link>
+			</div>
+		</header>
+	);
+}

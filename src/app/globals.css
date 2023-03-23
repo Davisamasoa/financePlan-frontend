@@ -1,5 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;400;700;800&display=swap");
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+}
+
+:root {
+	--primaryColor: theme("colors.primaryColor");
+	--secondaryColor: theme("colors.secondaryColor");
+	--textColor: theme("colors.textColor");
+}
+
+input:focus {
+	outline: none;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px var(--secondaryColor) inset;
+}
+
+input:-webkit-autofill:focus {
+	-webkit-box-shadow: 0 0 0 50px var(--secondaryColor) inset;
+	-webkit-text-fill-color: #333;
+}
+
+input:-webkit-autofill {
+	-webkit-text-fill-color: var(--textColor) !important;
 }
