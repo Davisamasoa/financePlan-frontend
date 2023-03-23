@@ -37,25 +37,18 @@ export default function Login() {
 		confirmPassword: AiOutlineEye,
 	});
 
-	function showPassword(): void {
-		const password: HTMLInputElement | null = document.querySelector("#password");
+	function showPassword(element: string): void {
+		const password: HTMLInputElement | null = document.querySelector(`#${element}`);
 		if (password?.type == "password") {
 			password.type = "text";
-			setPasswordEye({ ...PasswordEye, password: AiOutlineEyeInvisible });
+			element == "password"
+				? setPasswordEye({ ...PasswordEye, password: AiOutlineEyeInvisible })
+				: setPasswordEye({ ...PasswordEye, confirmPassword: AiOutlineEyeInvisible });
 		} else {
 			password?.type ? (password.type = "password") : undefined;
-			setPasswordEye({ ...PasswordEye, password: AiOutlineEye });
-		}
-	}
-
-	function showConfirmPassword(): void {
-		const password: HTMLInputElement | null = document.querySelector("#confirmPassword");
-		if (password?.type == "password") {
-			password.type = "text";
-			setPasswordEye({ ...PasswordEye, confirmPassword: AiOutlineEyeInvisible });
-		} else {
-			password?.type ? (password.type = "password") : undefined;
-			setPasswordEye({ ...PasswordEye, confirmPassword: AiOutlineEye });
+			element == "password"
+				? setPasswordEye({ ...PasswordEye, password: AiOutlineEye })
+				: setPasswordEye({ ...PasswordEye, confirmPassword: AiOutlineEye });
 		}
 	}
 
@@ -69,11 +62,11 @@ export default function Login() {
 
 			{console.log(errors)}
 
-			<main className="sm:mt-20  mt-14 flex flex-col gap-8 justify-center items-center w-full">
+			<main className="min-h-[80vh] flex flex-col gap-8 justify-center items-center w-full">
 				<h1 className="text-5xl font-bold">Cadastro</h1>
 				<form
 					onSubmit={(e) => e.preventDefault()}
-					className="sm:w-[360px]  w-full sm:p-10 p-8 rounded-lg bg-secondaryColor flex justify-center items-center gap-3 flex-col"
+					className="sm:w-[360px] w-full sm:p-10 p-8 rounded-lg bg-secondaryColor flex justify-center items-center gap-3 flex-col"
 				>
 					<div className="w-full">
 						<label htmlFor="email">Nome:</label>
@@ -127,7 +120,7 @@ export default function Login() {
 
 							<MdOutlineLock size={18} className="absolute top-2/4 left-3 translate-y-[-45%]" />
 							<PasswordEye.password
-								onClick={showPassword}
+								onClick={() => showPassword("password")}
 								size={18}
 								className="absolute top-2/4 right-3 translate-y-[-45%]"
 							/>
@@ -160,7 +153,7 @@ export default function Login() {
 
 							<MdOutlineLock size={18} className="absolute top-2/4 left-3 translate-y-[-45%]" />
 							<PasswordEye.confirmPassword
-								onClick={showConfirmPassword}
+								onClick={() => showPassword("confirmPassword")}
 								size={18}
 								className="absolute top-2/4 right-3 translate-y-[-45%]"
 							/>
@@ -180,7 +173,7 @@ export default function Login() {
 					<button
 						type="submit"
 						onClick={handleSubmit(onSubmit)}
-						className="w-full bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:bg-secondaryColor sm:hover:text-textColor  transition duration-300 text-base"
+						className="w-full bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80 transition duration-300 text-base"
 					>
 						Cadastrar
 					</button>

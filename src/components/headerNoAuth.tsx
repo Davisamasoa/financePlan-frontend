@@ -9,15 +9,15 @@ export default function HeaderNoAuth() {
 				</h1>
 			</Link>
 
-			<div className="flex justify-end items-center gap-3">
+			<div className="flex justify-end items-center sm:gap-3 gap-1">
 				<Link
-					className="border-2 border-primaryColor py-1 px-6 rounded-full hover:bg-primaryColor hover:text-bgColor transition duration-300 sm:text-base text-sm"
+					className="border-2 border-primaryColor py-1 sm:px-6 px-3 rounded-full sm:hover:opacity-80 transition duration-300 sm:text-base text-sm"
 					href="/login"
 				>
 					Entrar
 				</Link>
 				<Link
-					className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full hover:bg-bgColor hover:text-textColor  transition duration-300 sm:text-base text-sm"
+					className="bg-primaryColor border-2 border-primaryColor py-1 sm:px-6 px-3 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 sm:text-base text-sm"
 					href="/register"
 				>
 					Cadastrar

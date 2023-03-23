@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import svg from "../assets/Personal-finance.svg";
 
-export default function Home() {
+export default function Index() {
 	return (
 		<>
 			<HeaderNoAuth />
-			<main className="sm:mt-40  mt-14 flex justify-between items-center lg:flex-row flex-col sm:gap-0 gap-10">
+			<main className="min-h-[80vh] flex justify-between items-center lg:flex-row flex-col sm:gap-0 gap-10">
 				<div className="flex justify-center items-start flex-col gap-5">
 					<h1 className="sm:text-4xl text-2xl font-bold">
 						Querendo organizar suas finanças? <br /> Use o financePlan!
@@ -18,7 +18,7 @@ export default function Home() {
 						aquele dinheirinho no final do mês <br /> para conquistar seus objetivos.
 					</p>
 					<Link
-						className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:bg-bgColor sm:hover:text-textColor  transition duration-300 sm:text-base text-xs"
+						className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 sm:text-base text-xs"
 						href=""
 					>
 						Cadastrar
