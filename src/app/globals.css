@@ -10,6 +10,7 @@
 }
 
 :root {
+	--bgColor: theme("colors.bgColor");
 	--primaryColor: theme("colors.primaryColor");
 	--secondaryColor: theme("colors.secondaryColor");
 	--textColor: theme("colors.textColor");
@@ -30,4 +31,24 @@ input:-webkit-autofill:focus {
 
 input:-webkit-autofill {
 	-webkit-text-fill-color: var(--textColor) !important;
+}
+
+ul::-webkit-scrollbar-track {
+	border-radius: 5px;
+	background: var(--secondaryColor); /* color of the tracking area */
+}
+
+ul::-webkit-scrollbar-thumb {
+	background-color: var(--bgColor); /* color of the scroll thumb */
+	border-radius: 20px; /* roundness of the scroll thumb */
+	border: 3px solid var(--secondaryColorr); /* creates padding around scroll thumb */
+}
+
+ul::-webkit-scrollbar {
+	width: 12px;
+}
+
+.chart {
+	max-width: 200px;
+	max-height: 200px;
 }

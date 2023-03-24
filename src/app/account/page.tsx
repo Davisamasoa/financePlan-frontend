@@ -76,15 +76,15 @@ export default function Account() {
 	return (
 		<>
 			<HeaderAuth />
-			<main className="min-h-[80vh] flex flex-col gap-20  justify-center items-center">
-				<h1 className="text-5xl font-bold">Configurações da conta</h1>
+			<main className="min-h-[80vh]  flex flex-col gap-12  justify-center items-center">
+				<h1 className="sm:text-5xl text-4xl font-bold">Configurações da conta</h1>
 				<form
 					onSubmit={(e) => {
 						e.preventDefault();
 					}}
-					className="sm:w-[360px] w-full p-10 rounded-lg bg-secondaryColor flex flex-col justify-center items-center gap-4"
+					className="sm:w-[360px] w-full sm:p-10 rounded-lg  flex flex-col justify-center items-center gap-4"
 				>
-					<h1 className="mb-2  sm:text-4xl text-2xl text-center font-bold">Trocar senha</h1>
+					<h1 className="mb-2 w-full  sm:text-4xl text-2xl text-start font-bold">Trocar senha</h1>
 					<div className="flex flex-col gap-1 w-full">
 						<div className="w-full">
 							<label htmlFor="password">Senha antiga:</label>
@@ -92,7 +92,7 @@ export default function Account() {
 								<input
 									id="password"
 									className="w-full px-8 bg-transparent border-2 border-primaryColor py-1  rounded-full"
-									placeholder="Sua senha"
+									placeholder="Sua senha antiga"
 									type="password"
 									{...register("password", { required: true, minLength: 8 })}
 								/>
@@ -120,7 +120,7 @@ export default function Account() {
 								<input
 									id="newPassword"
 									className="w-full px-8 bg-transparent border-2 border-primaryColor py-1  rounded-full"
-									placeholder="Sua senha"
+									placeholder="Sua nova senha"
 									type="password"
 									{...register("newPassword", { required: true, minLength: 8 })}
 								/>
@@ -148,7 +148,7 @@ export default function Account() {
 								<input
 									id="confirmNewPassword"
 									className="w-full px-8 bg-transparent border-2 border-primaryColor py-1  rounded-full"
-									placeholder="Sua senha"
+									placeholder="Repita sua nova senha"
 									type="password"
 									{...register("confirmNewPassword", {
 										required: true,
@@ -190,7 +190,9 @@ export default function Account() {
 					</button>
 				</form>
 
-				<div className="sm:w-[360px] w-full px-10">
+				<div className="sm:w-[360px] w-full sm:px-10">
+					<h1 className="mb-6 w-full  sm:text-4xl text-2xl text-start font-bold">Configurações sensíveis</h1>
+
 					<button
 						onClick={() => setConfirmDelete(true)}
 						className="bg-redColor border-2 border-redColor py-2 px-6 text-bgColor w-full rounded-full sm:hover:opacity-80  transition duration-300 text-sm"

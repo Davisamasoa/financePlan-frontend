@@ -12,9 +12,9 @@ export default function Home() {
 	return (
 		<>
 			<HeaderAuth />
-			<main className="min-h-[80vh] flex flex-col justify-center items-center gap-20">
+			<main className="min-h-[80vh] mt-10 sm:mt-0 flex flex-col justify-center items-center gap-20">
 				<div className="flex flex-wrap justify-start sm:gap-0 gap-10 sm:justify-between items-center w-full">
-					<h1 className="text-5xl font-bold">Dashboard</h1>
+					<h1 className="sm:text-5xl text-4xl font-bold">Dashboard</h1>
 					<button
 						onClick={() => setShowCreateFinance(true)}
 						className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 sm:text-base text-sm"

@@ -5,7 +5,7 @@ export default function FinanceCard() {
 	const [confirmDelete, setConfirmDelete] = useState<boolean>();
 
 	return (
-		<div className="py-5 px-8 h-80 w-80 flex flex-col gap-2 bg-secondaryColor rounded-lg">
+		<div className="px-8 h-80 w-80 flex justify-center flex-col gap-2 bg-secondaryColor rounded-lg">
 			<h1 className="text-center text-3xl font-bold">Título</h1>
 			<span className="text-center -mt-2 mb-6">março 2023</span>
 			<span>
@@ -19,7 +19,7 @@ export default function FinanceCard() {
 			</span>
 			<div className="flex justify-start items-center gap-2 mt-5">
 				<button className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-sm">
-					Criar
+					Abrir
 				</button>
 				<button
 					onClick={() => setConfirmDelete(true)}

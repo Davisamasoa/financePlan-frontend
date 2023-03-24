@@ -52,7 +52,7 @@ export default function Login() {
 			{console.log(errors)}
 
 			<main className="min-h-[80vh] flex flex-col gap-8 justify-center items-center w-full">
-				<h1 className="text-5xl font-bold">Login</h1>
+				<h1 className="sm:text-5xl text-4xl font-bold">Login</h1>
 				<form
 					onSubmit={(e) => e.preventDefault()}
 					className="sm:w-[360px] w-full sm:p-10 p-8 rounded-lg bg-secondaryColor flex justify-center items-center gap-3 flex-col"
