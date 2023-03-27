@@ -9,6 +9,9 @@ import { FiUser } from "react-icons/fi";
 import { useState } from "react";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
+import { useRouter } from "next/navigation";
+
+const api_url = process.env.NEXT_PUBLIC_API_URL;
 
 type FormData = {
 	name: string;
@@ -22,7 +25,14 @@ type EyeIconsType = {
 	confirmPassword: IconType;
 };
 
+type fetchPromiseReturnType = {
+	success: boolean;
+	message: string;
+};
+
 export default function Login() {
+	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
@@ -30,7 +40,7 @@ export default function Login() {
 		watch,
 	} = useForm<FormData>();
 
-	const [serverError, setServerError] = useState<string>();
+	const [serverError, setServerError] = useState<string | null>();
 
 	const [PasswordEye, setPasswordEye] = useState<EyeIconsType>({
 		password: AiOutlineEye,
@@ -53,20 +63,39 @@ export default function Login() {
 	}
 
 	function onSubmit(data: FormData) {
-		console.log(data);
+		createUser(data);
+	}
+
+	async function createUser(data: FormData) {
+		const body = { name: data.name, email: data.email, password: data.password };
+		const request: fetchPromiseReturnType = await fetch(`${api_url}/user`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(body),
+		}).then((res) => res.json());
+
+		console.log(request.message);
+		console.log(JSON.stringify(body));
+
+		if (!request.success) {
+			setServerError(request.message);
+			setTimeout(() => {
+				setServerError(null);
+			}, 5000);
+		} else {
+			router.push(`/verifyEmail?email=${body.email}`);
+		}
 	}
 
 	return (
 		<>
 			<HeaderNoAuth />
 
-			{console.log(errors)}
-
 			<main className="min-h-[80vh] flex flex-col gap-8 justify-center items-center w-full">
 				<h1 className="sm:text-5xl text-4xl font-bold">Cadastro</h1>
 				<form
 					onSubmit={(e) => e.preventDefault()}
-					className="sm:w-[360px] w-full sm:p-10 p-8 rounded-lg bg-secondaryColor flex justify-center items-center gap-3 flex-col"
+					className="sm:w-[360px] w-full sm:p-10 p-8 rounded-lg bg-secondaryColor flex justify-center items-center gap-1 flex-col"
 				>
 					<div className="w-full">
 						<label htmlFor="email">Nome:</label>
@@ -79,7 +108,7 @@ export default function Login() {
 							/>
 							<FiUser size={18} className="absolute top-2/4 left-3 translate-y-[-50%]" />
 						</div>
-						<p className="min-h-[10px] text-sm  h-[10px] text-end text-redColor">
+						<p className="min-h-[20px] text-sm text-end text-redColor">
 							{errors?.email ? "Esse campo é obrigatório" : ""}
 						</p>
 					</div>
@@ -102,7 +131,7 @@ export default function Login() {
 							/>
 							<MdOutlineMailOutline size={18} className="absolute top-2/4 left-3 translate-y-[-45%]" />
 						</div>
-						<p className="min-h-[10px] text-sm  h-[10px] text-end text-redColor">
+						<p className="min-h-[20px] text-sm text-end text-redColor">
 							{errors?.email?.type == "required" ? "Esse campo é obrigatório" : ""}
 							{errors?.email?.type == "pattern" ? "E-mail inválido" : ""}
 						</p>
@@ -125,7 +154,7 @@ export default function Login() {
 								className="absolute top-2/4 right-3 translate-y-[-45%]"
 							/>
 						</div>
-						<p className="min-h-[10px] text-sm  h-[10px] text-end text-redColor">
+						<p className="min-h-[20px] text-sm text-end text-redColor">
 							{errors?.password?.type == "required" ? "Esse campo é obrigatório" : ""}
 							{errors?.password?.type == "minLength" ? "É necessário no mínimo 8 caracteres" : ""}
 						</p>
@@ -159,8 +188,8 @@ export default function Login() {
 							/>
 						</div>
 						<p
-							className={`min-h-[10px] text-sm  h-[10px] ${
-								serverError ? "text-center mt-2" : "text-end"
+							className={`min-h-[20px] text-sm mt-2 ${
+								serverError ? "text-center" : "text-end"
 							} text-redColor`}
 						>
 							{errors?.confirmPassword?.type == "required" ? "Esse campo é obrigatório" : ""}

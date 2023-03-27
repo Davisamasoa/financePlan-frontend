@@ -55,7 +55,7 @@ export default function Login() {
 				<h1 className="sm:text-5xl text-4xl font-bold">Login</h1>
 				<form
 					onSubmit={(e) => e.preventDefault()}
-					className="sm:w-[360px] w-full sm:p-10 p-8 rounded-lg bg-secondaryColor flex justify-center items-center gap-3 flex-col"
+					className="sm:w-[360px] w-full sm:p-10 p-8 rounded-lg bg-secondaryColor flex justify-center items-center gap-1 flex-col"
 				>
 					<div className="w-full">
 						<label htmlFor="email">Email:</label>
@@ -74,7 +74,7 @@ export default function Login() {
 							/>
 							<MdOutlineMailOutline size={18} className="absolute top-2/4 left-3 translate-y-[-45%]" />
 						</div>
-						<p className="min-h-[10px] text-sm  h-[10px] text-end text-redColor">
+						<p className="min-h-[20px] text-sm text-end text-redColor">
 							{errors?.email?.type == "required" ? "Esse campo é obrigatório" : ""}
 							{errors?.email?.type == "pattern" ? "E-mail inválido" : ""}
 						</p>
@@ -98,7 +98,7 @@ export default function Login() {
 							/>
 						</div>
 						<p
-							className={`min-h-[10px] text-sm  h-[10px] ${
+							className={`min-h-[20px] text-sm ${
 								serverError ? "text-center mt-2" : "text-end"
 							} text-redColor`}
 						>
