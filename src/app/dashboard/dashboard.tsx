@@ -7,6 +7,9 @@ import HeaderAuth from "@/components/layout/headerAuth";
 import { getCookie } from "@/functions/getCookie";
 import { getUserId } from "@/functions/getUserId";
 import { useEffect, useState } from "react";
+import { ScaleLoader } from "react-spinners";
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../../../tailwind.config";
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -28,6 +31,8 @@ type responseFetchFinance = {
 	success: boolean;
 	message: financeData[];
 };
+
+const primaryColor = resolveConfig(tailwindConfig)?.theme?.colors?.primaryColor || "white";
 
 export default function Dashboard() {
 	const [showCreateFinance, setShowCreateFinance] = useState<boolean>();
@@ -67,20 +72,26 @@ export default function Dashboard() {
 				</div>
 				<div className="w-full flex justify-center lg:justify-start items-center flex-wrap gap-5 ">
 					{loading ? (
-						<h1>Carregando...</h1>
+						<>
+							<div className="w-full mt-20 flex justify-center items-center">
+								<ScaleLoader color={primaryColor} />
+							</div>
+						</>
 					) : (
 						financeData?.map((finance) => {
 							return (
-								<FinanceCard
-									key={finance.id}
-									name={finance.name}
-									date={finance.date}
-									entry={finance.entry}
-									id={finance.id}
-									expensesData={finance.expenses}
-									fetchDataAgain={fetchDataAgain}
-									setFetchDataAgain={setFetchDataAgain}
-								/>
+								<>
+									<FinanceCard
+										key={finance.id}
+										name={finance.name}
+										date={finance.date}
+										entry={finance.entry}
+										id={finance.id}
+										expensesData={finance.expenses}
+										fetchDataAgain={fetchDataAgain}
+										setFetchDataAgain={setFetchDataAgain}
+									/>
+								</>
 							);
 						})
 					)}

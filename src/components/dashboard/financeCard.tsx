@@ -51,7 +51,8 @@ export default function FinanceCard({
 	const month: string = (fullMonth as Record<string, string>)[new Date(date).getMonth() + 1];
 
 	useEffect(() => {
-		setExpenses(expensesData.reduce((acc, expense) => acc + expense.value, 0));
+		// setExpenses(expensesData.reduce((acc, expense) => acc + expense.value, 0));
+		console.log(expensesData);
 	}, []);
 
 	async function deleteFinance(financePlanId: number) {
