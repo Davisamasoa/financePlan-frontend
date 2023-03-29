@@ -40,7 +40,8 @@ type responseFetchFinance = {
 	message: financeData;
 };
 
-const primaryColor = resolveConfig(tailwindConfig)?.theme?.colors?.primaryColor || "white";
+const primaryColor =
+	(resolveConfig(tailwindConfig)?.theme?.colors?.primaryColor as string | undefined) || "white";
 
 export default function Finance({ params }: { params: { id: string } }) {
 	const [budgetInformations, setBudgetInformations] = useState<BudgetInformationsType>({
