@@ -9,7 +9,6 @@ type CreateGoalType = {
 };
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
-const token = getCookie("token");
 
 export default function CreateGoal({
 	setCreateGoal,
@@ -24,6 +23,7 @@ export default function CreateGoal({
 	}
 
 	const postNewExpense = async () => {
+		const token = getCookie("token");
 		await fetch(`${api_url}/goal`, {
 			method: "POST",
 			headers: {

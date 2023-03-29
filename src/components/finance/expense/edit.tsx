@@ -19,7 +19,6 @@ type editExpenseType = {
 };
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
-const token = getCookie("token");
 
 export default function EditExpense({
 	showEditExpense,
@@ -42,6 +41,8 @@ export default function EditExpense({
 	}
 
 	const editExpense = async () => {
+		const token = getCookie("token");
+
 		await fetch(`${api_url}/expense/${expenseId}`, {
 			method: "PUT",
 			headers: {

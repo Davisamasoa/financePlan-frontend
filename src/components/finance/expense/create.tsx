@@ -1,5 +1,5 @@
 import { getCookie } from "@/functions/getCookie";
-import React, { SetStateAction, useCallback, useState } from "react";
+import React, { SetStateAction, useState } from "react";
 
 type CreateExpenseType = {
 	setShowCreateExpense: React.Dispatch<React.SetStateAction<boolean | undefined>>;
@@ -9,7 +9,6 @@ type CreateExpenseType = {
 };
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
-const token = getCookie("token");
 
 export default function CreateExpense({
 	setShowCreateExpense,
@@ -29,7 +28,8 @@ export default function CreateExpense({
 	}
 
 	const postNewExpense = async () => {
-		const data = await fetch(`${api_url}/expense`, {
+		const token = getCookie("token");
+		await fetch(`${api_url}/expense`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

@@ -3,7 +3,7 @@ import { IoIosClose } from "react-icons/io";
 
 type ConfirmDeleteType = {
 	message: string;
-	setConfirmDelete: React.Dispatch<SetStateAction<boolean | undefined>>;
+	setConfirmDelete: React.Dispatch<SetStateAction<{ show: boolean; delete: boolean } | undefined>>;
 };
 
 export default function ConfirmDelete({ message, setConfirmDelete }: ConfirmDeleteType) {
@@ -14,11 +14,14 @@ export default function ConfirmDelete({ message, setConfirmDelete }: ConfirmDele
 				<div className="flex w-full flex-col justify-center items-center gap-2 mt-1">
 					<p>Tem certeza que deseja excluir {message}?</p>
 					<div className="flex w-full justify-center items-center gap-2 mt-5">
-						<button className="bg-redColor border-2 border-redColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-sm">
+						<button
+							onClick={() => setConfirmDelete({ show: false, delete: true })}
+							className="bg-redColor border-2 border-redColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-sm"
+						>
 							Excluir
 						</button>
 						<button
-							onClick={() => setConfirmDelete(false)}
+							onClick={() => setConfirmDelete({ show: false, delete: false })}
 							className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-sm"
 						>
 							Cancelar

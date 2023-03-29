@@ -6,16 +6,22 @@ import Footer from "@/components/layout/footer";
 import HeaderAuth from "@/components/layout/headerAuth";
 import { getCookie } from "@/functions/getCookie";
 import { getUserId } from "@/functions/getUserId";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
-const token = getCookie("token");
+
+type ExpensesType = {
+	id: number;
+	name: string;
+	value: number;
+};
 
 type financeData = {
 	id: number;
 	name: string;
 	date: string;
 	entry: string;
+	expenses: ExpensesType[];
 };
 
 type responseFetchFinance = {
@@ -23,32 +29,34 @@ type responseFetchFinance = {
 	message: financeData[];
 };
 
-const userId = getUserId();
-
 export default function Home() {
 	const [showCreateFinance, setShowCreateFinance] = useState<boolean>();
 	const [financeData, setFinanceData] = useState<financeData[]>([]);
+	const [fetchDataAgain, setFetchDataAgain] = useState<boolean>();
 	const [loading, setLoading] = useState<boolean>(true);
 
-	const fetchFinanceData = useCallback(async () => {
+	const fetchFinanceData = async () => {
+		const token = getCookie("token");
+		const userId = getUserId();
 		const data: responseFetchFinance = await fetch(`${api_url}/financePlan/${userId}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((data) => data.json());
 		setFinanceData(data.message);
+		console.log(data.message);
 		setLoading(false);
-	}, [financeData]);
+	};
 
 	useEffect(() => {
 		fetchFinanceData();
-	}, []);
+	}, [fetchDataAgain]);
 
 	return (
 		<>
 			<HeaderAuth />
-			<main className="min-h-[80vh] mt-10 sm:mt-0 flex flex-col justify-center items-center gap-20">
-				<div className="flex flex-wrap justify-start sm:gap-0 gap-10 sm:justify-between items-center w-full">
+			<main className="min-h-[80vh] mt-10 sm:mt-0 flex flex-col justify-start items-center gap-20">
+				<div className="flex mt-40 flex-wrap justify-start sm:gap-0 gap-10 sm:justify-between items-center w-full">
 					<h1 className="sm:text-5xl text-4xl font-bold">Dashboard</h1>
 					<button
 						onClick={() => setShowCreateFinance(true)}
@@ -69,12 +77,21 @@ export default function Home() {
 									date={finance.date}
 									entry={finance.entry}
 									id={finance.id}
+									expensesData={finance.expenses}
+									fetchDataAgain={fetchDataAgain}
+									setFetchDataAgain={setFetchDataAgain}
 								/>
 							);
 						})
 					)}
 
-					{showCreateFinance ? <CreateFinance setShowCreateFinance={setShowCreateFinance} /> : undefined}
+					{showCreateFinance ? (
+						<CreateFinance
+							setShowCreateFinance={setShowCreateFinance}
+							fetchDataAgain={fetchDataAgain}
+							setFetchDataAgain={setFetchDataAgain}
+						/>
+					) : undefined}
 				</div>
 			</main>
 			<Footer />

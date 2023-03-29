@@ -20,7 +20,6 @@ type editGoalType = {
 };
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
-const token = getCookie("token");
 
 export default function Goals({ financePlanId }: { financePlanId: string }) {
 	const [goals, setGoals] = useState<GoalsType[]>([]);
@@ -29,6 +28,7 @@ export default function Goals({ financePlanId }: { financePlanId: string }) {
 	const [editGoal, setEditGoal] = useState<editGoalType>();
 
 	const fetchGoalsData = async () => {
+		const token = getCookie("token");
 		const data = await fetch(`${api_url}/goal/${financePlanId}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -38,6 +38,7 @@ export default function Goals({ financePlanId }: { financePlanId: string }) {
 	};
 
 	const toggleDone = async (goalId: number, done: boolean) => {
+		const token = getCookie("token");
 		await fetch(`${api_url}/goal/${goalId}`, {
 			method: "PUT",
 			headers: {
@@ -53,6 +54,7 @@ export default function Goals({ financePlanId }: { financePlanId: string }) {
 	};
 
 	async function deleteGoal(goalId: number) {
+		const token = getCookie("token");
 		await fetch(`${api_url}/goal/${goalId}`, {
 			method: "DELETE",
 			headers: {

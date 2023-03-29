@@ -65,10 +65,15 @@ export default function Login() {
 		}).then((res) => res.json());
 
 		if (!request.success) {
-			setServerError(request.message);
-			setTimeout(() => {
-				setServerError(null);
-			}, 5000);
+			if (request.message == "O email não está verificado!") {
+				router.push(`/verifyEmail?email=${data.email}`);
+			} else {
+				setServerError(request.message);
+
+				setTimeout(() => {
+					setServerError(null);
+				}, 5000);
+			}
 		} else {
 			const actualDate = new Date();
 			actualDate.setDate(actualDate.getDate() + 30);

@@ -1,22 +1,28 @@
 import { getCookie } from "@/functions/getCookie";
-import { getUserId } from "@/functions/getUserId";
+
 import React, { useState } from "react";
 
 type CreateFinanceType = {
-	setShowCreateFinance: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+	setShowEditFinance: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 	fetchDataAgain: boolean | undefined;
 	setFetchDataAgain: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+	title: string | undefined;
+	entry: number | string | undefined;
+	id: number;
 };
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
 
-export default function CreateFinance({
-	setShowCreateFinance,
+export default function EditFinance({
+	setShowEditFinance,
 	fetchDataAgain,
 	setFetchDataAgain,
+	title,
+	entry,
+	id,
 }: CreateFinanceType) {
-	const [nameInputValue, setNameInputValue] = useState<string>("");
-	const [entryInputValue, setEntryInputValue] = useState<string>("");
+	const [nameInputValue, setNameInputValue] = useState<string | undefined>(title);
+	const [entryInputValue, setEntryInputValue] = useState<string | number | undefined>(entry);
 	const [validateMessage, setValidateMessage] = useState<string | null>();
 
 	function handleNameInput(e: React.FormEvent<HTMLInputElement>) {
@@ -27,27 +33,31 @@ export default function CreateFinance({
 		setEntryInputValue(e.currentTarget.value);
 	}
 
-	const postNewFinance = async () => {
-		const token = getCookie("token");
-		const userId = getUserId();
-		if (nameInputValue == "" || entryInputValue == "") {
+	const editFinance = async () => {
+		if (
+			nameInputValue == "" ||
+			entryInputValue == "" ||
+			nameInputValue == undefined ||
+			entryInputValue == undefined
+		) {
 			setValidateMessage("Preencha todos os campos!");
 		} else {
-			await fetch(`${api_url}/financePlan`, {
-				method: "POST",
+			const token = getCookie("token");
+			await fetch(`${api_url}/financePlan/${id}`, {
+				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${token}`,
 				},
 				body: JSON.stringify({
 					name: nameInputValue,
-					entry: entryInputValue,
-					userId: userId,
+
+					entry: +entryInputValue,
 				}),
 			}).then((res) => res.json());
 
 			setFetchDataAgain(!fetchDataAgain);
-			setShowCreateFinance(false);
+			setShowEditFinance(false);
 		}
 	};
 
@@ -57,11 +67,11 @@ export default function CreateFinance({
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();
-					setShowCreateFinance(false);
+					setShowEditFinance(false);
 				}}
 				className="z-50 absolute  top-2/4 left-2/4 -translate-x-[50%] -translate-y-[50%]  sm:w-[360px] w-full p-10 rounded-lg bg-secondaryColor flex flex-col justify-center items-center gap-4"
 			>
-				<h1 className="mb-2  sm:text-4xl text-2xl text-center font-bold">Criar planilha financeira</h1>
+				<h1 className="mb-2  sm:text-4xl text-2xl text-center font-bold">Editar planilha financeira</h1>
 				<div className="flex flex-col gap-1 w-full">
 					<label>Nome da planilha:</label>
 					<input
@@ -70,6 +80,7 @@ export default function CreateFinance({
 						name="finance-name"
 						placeholder="Orçamento março 2023"
 						required
+						value={nameInputValue}
 						onChange={handleNameInput}
 					/>
 					<label className="">Digite seu orçamento:</label>
@@ -79,6 +90,7 @@ export default function CreateFinance({
 						name="budget-value"
 						placeholder="500"
 						required
+						value={entryInputValue}
 						onChange={handleValueInput}
 					/>
 				</div>
@@ -91,13 +103,13 @@ export default function CreateFinance({
 				</p>
 				<div className="flex w-full justify-start items-center gap-2 mt-5">
 					<button
-						onClick={postNewFinance}
+						onClick={editFinance}
 						className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-sm"
 					>
-						Criar
+						Editar
 					</button>
 					<button
-						onClick={() => setShowCreateFinance(false)}
+						onClick={() => setShowEditFinance(false)}
 						className="bg-redColor border-2 border-redColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-sm"
 					>
 						Cancelar

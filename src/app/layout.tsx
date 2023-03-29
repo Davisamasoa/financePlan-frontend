@@ -2,8 +2,7 @@
 import PrivateRoute from "@/components/auth/privateRoute";
 import PublicRoute from "@/components/auth/publicRoute";
 import { checkIsPublic } from "@/functions/checkRoutes";
-import { getCookie } from "@/functions/getCookie";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import "./globals.css";
 
 export const metadata = {

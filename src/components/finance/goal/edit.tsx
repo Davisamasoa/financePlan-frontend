@@ -17,7 +17,6 @@ type editGoalType = {
 };
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
-const token = getCookie("token");
 
 export default function EditGoal({
 	showEditGoal,
@@ -34,6 +33,7 @@ export default function EditGoal({
 	}
 
 	const editGoalName = async () => {
+		const token = getCookie("token");
 		await fetch(`${api_url}/goal/${goalId}`, {
 			method: "PUT",
 			headers: {

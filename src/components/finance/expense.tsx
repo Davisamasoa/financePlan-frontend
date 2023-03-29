@@ -4,8 +4,6 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { FaRegEdit, FaTrash } from "react-icons/fa";
 import CreateExpense from "./expense/create";
 import EditExpense from "./expense/edit";
-import CreateGoal from "./goal/create";
-import EditGoal from "./goal/edit";
 
 type ExpensesType = {
 	id: number;
@@ -31,7 +29,6 @@ type editExpenseType = {
 };
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
-const token = getCookie("token");
 
 type ExpensesProps = {
 	financePlanId: string;
@@ -46,6 +43,7 @@ export default function Expenses({ financePlanId, budgetInformations, setBudgetI
 	const [editExpense, setEditExpense] = useState<editExpenseType>();
 
 	const fetchExpensesData = async () => {
+		const token = getCookie("token");
 		const data: responseFetch = await fetch(`${api_url}/expense/${financePlanId}`, {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -55,6 +53,8 @@ export default function Expenses({ financePlanId, budgetInformations, setBudgetI
 	};
 
 	async function deleteExpense(expenseId: number) {
+		const token = getCookie("token");
+
 		await fetch(`${api_url}/expense/${expenseId}`, {
 			method: "DELETE",
 			headers: {
@@ -63,8 +63,6 @@ export default function Expenses({ financePlanId, budgetInformations, setBudgetI
 		}).then((data) => data.json());
 		setFetchDataAgain(!fetchDataAgain);
 	}
-
-	console.log(token);
 
 	useEffect(() => {
 		fetchExpensesData();
@@ -78,7 +76,7 @@ export default function Expenses({ financePlanId, budgetInformations, setBudgetI
 	}, [expenses]);
 
 	return (
-		<div className="w-full  p-6 md:pl-10 lg:pl-14 pr-4 gap-5  flex flex-col justify-start py-5 items-start  rounded-lg h-full bg-secondaryColor">
+		<div className="w-full  p-6  md:pl-10 lg:px-14 gap-5  flex flex-col justify-start py-5 items-start  rounded-lg h-full bg-secondaryColor">
 			<div className="flex w-full justify-center items-center gap-2">
 				<h1 className="text-4xl font-bold">Despesas</h1>
 				<button

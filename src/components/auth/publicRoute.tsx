@@ -1,17 +1,21 @@
 import { APP_ROUTES } from "@/contants/app-routes";
 import { getCookie } from "@/functions/getCookie";
 import { usePathname, useRouter } from "next/navigation";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 
 export default function PublicRoute({ children }: { children: ReactNode }) {
 	const { push } = useRouter();
 	const pathName = usePathname();
 
-	const isAuthenticated = getCookie("token");
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
 	useEffect(() => {
+		const isAuthenticated = getCookie("token");
 		if (pathName !== "/" && isAuthenticated) {
 			push(APP_ROUTES.private.dashboard.name);
+		}
+		if (isAuthenticated) {
+			setIsAuthenticated(true);
 		}
 	}, [isAuthenticated, push, pathName]);
 
