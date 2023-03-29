@@ -32,7 +32,8 @@ type responseFetchFinance = {
 	message: financeData[];
 };
 
-const primaryColor = resolveConfig(tailwindConfig)?.theme?.colors?.primaryColor as string | undefined || "white";
+const primaryColor =
+	(resolveConfig(tailwindConfig)?.theme?.colors?.primaryColor as string | undefined) || "white";
 
 export default function Dashboard() {
 	const [showCreateFinance, setShowCreateFinance] = useState<boolean>();
@@ -60,7 +61,7 @@ export default function Dashboard() {
 	return (
 		<>
 			<HeaderAuth />
-			<main className="min-h-[80vh] mt-10 sm:mt-0 flex flex-col justify-start items-center gap-20">
+			<main className="min-h-[80vh] sm:mt-10 mt-0 flex flex-col justify-start items-center gap-20">
 				<div className="flex mt-40 flex-wrap justify-start sm:gap-0 gap-10 sm:justify-between items-center w-full">
 					<h1 className="sm:text-5xl text-4xl font-bold">Dashboard</h1>
 					<button

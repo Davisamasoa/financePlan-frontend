@@ -18,7 +18,7 @@ export default function Index() {
 						aquele dinheirinho no final do mês <br /> para conquistar seus objetivos.
 					</p>
 					<Link
-						className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 sm:text-base text-xs"
+						className="bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 sm:text-base text-sm"
 						href=""
 					>
 						Cadastrar

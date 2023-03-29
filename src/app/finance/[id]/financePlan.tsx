@@ -87,10 +87,10 @@ export default function Finance({ params }: { params: { id: string } }) {
 						</Link>
 					</div>
 
-					<div className="flex justify-center items-center mb-10">
+					<div className="flex justify-center items-center mb-10 mt-10 sm:mt-0">
 						<div className="w-full flex justify-center items-center flex-col">
 							<h1 className="text-5xl font-bold">{title}</h1>
-							<span className="text-center">Março 2023</span>
+							<span className="text-center mt-3 sm:mt-0">Março 2023</span>
 						</div>
 						<button
 							onClick={() => setEditFinancePlan(true)}
