@@ -1,58 +1,28 @@
 "use client";
-import Footer from "@/components/footer";
-import HeaderAuth from "@/components/headerAuth";
+import Footer from "@/components/layout/footer";
+import HeaderAuth from "@/components/layout/headerAuth";
 import React, { useState } from "react";
 import { IoArrowUndoSharp } from "react-icons/io5";
-import { AiFillPlusCircle } from "react-icons/ai";
-import { FaTrash } from "react-icons/fa";
-import { FaRegEdit } from "react-icons/fa";
+
 import Link from "next/link";
-import Chart from "@/components/chart";
+import Chart from "@/components/finance/chart";
+import Expenses from "@/components/finance/expense";
+import Goals from "@/components/finance/goal";
+import { getCookie } from "@/functions/getCookie";
 
-type ExpensesType = {
-	name: string;
-	value: number;
-};
-
-type GoalsType = {
-	name: string;
-};
+const api_url = process.env.NEXT_PUBLIC_API_URL;
+const token = getCookie("token");
 
 type BudgetInformationsType = {
 	entry: number;
 	exit: number;
 };
 
-export default function Finance() {
-	const [expenses, setExpenses] = useState<ExpensesType[]>([
-		{ name: "shopping", value: 200 },
-		{ name: "shopping", value: 200 },
-		{ name: "shopping", value: 200 },
-		{ name: "shopping", value: 200 },
-		{ name: "shopping", value: 200 },
-		{ name: "shopping", value: 200 },
-		{ name: "shopping", value: 200 },
-		{ name: "shopping", value: 200 },
-	]);
-
+export default function Finance({ params }: { params: { id: string } }) {
 	const [budgetInformations, setBudgetInformations] = useState<BudgetInformationsType>({
 		entry: 3000,
-		exit: expenses.reduce((acc, expense) => acc + expense.value, 0),
+		exit: 0,
 	});
-
-	const [goals, setGoals] = useState<GoalsType[]>([
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-		{ name: "Comprar PC" },
-	]);
 
 	return (
 		<>
@@ -117,65 +87,12 @@ export default function Finance() {
 					</div>
 				</div>
 
-				<div className="w-full  p-6 md:pl-10 lg:pl-14 pr-4 gap-5  flex flex-col justify-start py-5 items-start  rounded-lg h-full bg-secondaryColor">
-					<div className="flex w-full justify-center items-center gap-2">
-						<h1 className="text-4xl font-bold">Despesas</h1>
-						<button className="font-bold text-bgColor rounded-full sm:hover:opacity-80  transition duration-300">
-							<AiFillPlusCircle size={40} className="text-primaryColor" />
-						</button>
-					</div>
-
-					<ul className="text-xl flex flex-col gap-2 max-h-[168px] lg:max-h-[424px] w-full overflow-y-auto pr-6">
-						{expenses.map((expense, index) => (
-							<>
-								<li key={expense.name} className="flex flex-wrap gap-2 justify-between items-center">
-									<span>• {expense.name}</span>
-									<span>-</span>
-									<span className="font-bold">
-										{expense.value.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
-									</span>
-									<div className="flex justify-center items-center gap-1">
-										<button className="sm:hover:opacity-80 transition duration-300">
-											<FaRegEdit size={18} className="text-primaryColor" />
-										</button>
-										<button className="sm:hover:opacity-80 transition duration-300">
-											<FaTrash size={15} className="text-primaryColor" />
-										</button>
-									</div>
-								</li>
-
-								{!(index == expenses.length - 1) ? <hr className="text-textColor opacity-20" /> : undefined}
-							</>
-						))}
-					</ul>
-				</div>
-				<div className="w-full  p-6  md:pl-10 lg:px-14 gap-5  flex flex-col justify-start py-5 items-start  rounded-lg h-full bg-secondaryColor">
-					<div className="flex w-full justify-center items-center gap-2">
-						<h1 className="text-4xl font-bold">Metas</h1>
-						<button className="font-bold text-bgColor rounded-full sm:hover:opacity-80  transition duration-300">
-							<AiFillPlusCircle size={40} className="text-primaryColor" />
-						</button>
-					</div>
-
-					<ul className="text-xl flex flex-col gap-2 max-h-[168px] lg:max-h-[424px] w-full overflow-y-auto pr-6">
-						{goals.map((goal, index) => (
-							<>
-								<li key={index} className="flex gap-2 justify-between items-center">
-									<span>• {goal.name}</span>
-									<div className="flex justify-center items-center gap-1">
-										<button className="sm:hover:opacity-80 transition duration-300">
-											<FaRegEdit size={18} className="text-primaryColor" />
-										</button>
-										<button className="sm:hover:opacity-80 transition duration-300">
-											<FaTrash size={15} className="text-primaryColor" />
-										</button>
-									</div>
-								</li>
-								{!(index == goals.length - 1) ? <hr className="text-textColor opacity-20" /> : undefined}
-							</>
-						))}
-					</ul>
-				</div>
+				<Expenses
+					financePlanId={params.id}
+					setBudgetInformation={setBudgetInformations}
+					budgetInformations={budgetInformations}
+				/>
+				<Goals financePlanId={params.id} />
 			</main>
 			<Footer />
 		</>

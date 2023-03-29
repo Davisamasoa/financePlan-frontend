@@ -1,13 +1,48 @@
 "use client";
 
-import CreateFinance from "@/components/createFinance";
-import FinanceCard from "@/components/financeCard";
-import Footer from "@/components/footer";
-import HeaderAuth from "@/components/headerAuth";
-import { useState } from "react";
+import CreateFinance from "@/components/dashboard/createFinance";
+import FinanceCard from "@/components/dashboard/financeCard";
+import Footer from "@/components/layout/footer";
+import HeaderAuth from "@/components/layout/headerAuth";
+import { getCookie } from "@/functions/getCookie";
+import { getUserId } from "@/functions/getUserId";
+import { useCallback, useEffect, useState } from "react";
+
+const api_url = process.env.NEXT_PUBLIC_API_URL;
+const token = getCookie("token");
+
+type financeData = {
+	id: number;
+	name: string;
+	date: string;
+	entry: string;
+};
+
+type responseFetchFinance = {
+	success: boolean;
+	message: financeData[];
+};
+
+const userId = getUserId();
 
 export default function Home() {
 	const [showCreateFinance, setShowCreateFinance] = useState<boolean>();
+	const [financeData, setFinanceData] = useState<financeData[]>([]);
+	const [loading, setLoading] = useState<boolean>(true);
+
+	const fetchFinanceData = useCallback(async () => {
+		const data: responseFetchFinance = await fetch(`${api_url}/financePlan/${userId}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		}).then((data) => data.json());
+		setFinanceData(data.message);
+		setLoading(false);
+	}, [financeData]);
+
+	useEffect(() => {
+		fetchFinanceData();
+	}, []);
 
 	return (
 		<>
@@ -22,10 +57,22 @@ export default function Home() {
 						Criar +
 					</button>
 				</div>
-				<div className="w-full flex justify-center lg:justify-between items-center flex-wrap gap-5 ">
-					<FinanceCard />
-					<FinanceCard />
-					<FinanceCard />
+				<div className="w-full flex justify-center lg:justify-start items-center flex-wrap gap-5 ">
+					{loading ? (
+						<h1>Carregando...</h1>
+					) : (
+						financeData?.map((finance) => {
+							return (
+								<FinanceCard
+									key={finance.id}
+									name={finance.name}
+									date={finance.date}
+									entry={finance.entry}
+									id={finance.id}
+								/>
+							);
+						})
+					)}
 
 					{showCreateFinance ? <CreateFinance setShowCreateFinance={setShowCreateFinance} /> : undefined}
 				</div>

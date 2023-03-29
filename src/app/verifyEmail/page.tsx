@@ -1,7 +1,7 @@
 "use client";
 
-import Footer from "@/components/footer";
-import HeaderNoAuth from "@/components/headerNoAuth";
+import Footer from "@/components/layout/footer";
+import HeaderNoAuth from "@/components/layout/headerNoAuth";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { useState } from "react";
 
@@ -12,6 +12,7 @@ const api_url = process.env.NEXT_PUBLIC_API_URL;
 type fetchPromiseReturnType = {
 	success: boolean;
 	message: string;
+	token: string;
 };
 
 export default function VerifyEmail() {
@@ -42,9 +43,12 @@ export default function VerifyEmail() {
 				setServerError(null);
 			}, 5000);
 		} else {
-			// router.push(`/verifyEmail?email=${body.email}`);
-			alert(request.message);
 			setSendCodeToEmail(false);
+
+			setServerError("O código foi enviado para o seu e-mail");
+			setTimeout(() => {
+				setServerError(null);
+			}, 2000);
 		}
 	}
 
@@ -62,8 +66,12 @@ export default function VerifyEmail() {
 				setServerError(null);
 			}, 5000);
 		} else {
-			// router.push(`/dashboard`);
-			alert(request.message);
+			const actualDate = new Date();
+			actualDate.setDate(actualDate.getDate() + 30);
+			const expireDate = actualDate.toUTCString();
+			document.cookie = `token=${request.token};expires=${expireDate};path=/`;
+
+			router.push(`/dashboard`);
 		}
 	}
 
@@ -128,7 +136,13 @@ export default function VerifyEmail() {
 									/>
 									<MdOutlineMailOutline size={18} className="absolute top-2/4 left-3 translate-y-[-45%]" />
 								</div>
-								<p className="min-h-[10px] text-sm  h-[10px] text-end text-redColor">
+								<p
+									className={`min-h-[10px] text-sm  h-[10px] text-end ${
+										serverError == "O código foi enviado para o seu e-mail"
+											? "text-greenColor"
+											: "text-redColor"
+									}`}
+								>
 									{serverError ? serverError : ""}
 								</p>
 							</div>

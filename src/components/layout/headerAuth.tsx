@@ -1,12 +1,14 @@
 "use client";
 
+import { deleteCookie } from "@/functions/deleteCookie";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
 
 export default function HeaderAuth() {
 	const [userMenu, setUserMenu] = useState<boolean>(false);
-
+	const router = useRouter();
 	return (
 		<header className="w-full h-20 flex justify-between items-center">
 			<Link href="/">
@@ -28,7 +30,7 @@ export default function HeaderAuth() {
 				<div
 					className={` ${
 						userMenu ? undefined : "hidden"
-					} absolute top-10 flex justify-center  items-center gap-3 w-52 p-5 flex-col bg-secondaryColor rounded-lg`}
+					} absolute top-10 flex justify-center z-50  items-center gap-3 w-52 p-5 flex-col bg-secondaryColor rounded-lg`}
 				>
 					<Link href="/dashboard" className="sm:hover:opacity-75 transition duration-300">
 						Dashboard
@@ -36,7 +38,13 @@ export default function HeaderAuth() {
 					<Link href="/account" className="sm:hover:opacity-75 transition duration-300">
 						Configurações
 					</Link>
-					<button className="bg-primaryColor border-2 border-primaryColor py-1 px-3 text-bgColor rounded-full hover:bg-secondaryColor hover:text-textColor  transition duration-300 sm:text-base text-sm">
+					<button
+						onClick={() => {
+							deleteCookie("token");
+							router.push("/login");
+						}}
+						className="bg-primaryColor border-2 border-primaryColor py-1 px-3 text-bgColor rounded-full sm:hover:opacity-75 transition duration-300 sm:text-base text-sm"
+					>
 						Encerrar sessão
 					</button>
 				</div>

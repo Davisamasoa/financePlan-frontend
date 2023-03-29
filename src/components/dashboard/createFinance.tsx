@@ -1,5 +1,4 @@
 import React from "react";
-import { IoIosClose } from "react-icons/io";
 
 type CreateFinanceType = {
 	setShowCreateFinance: React.Dispatch<React.SetStateAction<boolean | undefined>>;
@@ -8,7 +7,7 @@ type CreateFinanceType = {
 export default function CreateFinance({ setShowCreateFinance }: CreateFinanceType) {
 	return (
 		<>
-			<div className="w-full h-full top-0 blur-2xl absolute  bg-bgColor/80  "></div>
+			<div className="w-full h-full top-0 left-0 blur-2xl absolute  bg-bgColor/80  "></div>
 			<form
 				onSubmit={(e) => {
 					e.preventDefault();

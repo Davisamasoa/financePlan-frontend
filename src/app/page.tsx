@@ -1,5 +1,5 @@
-import Footer from "@/components/footer";
-import HeaderNoAuth from "@/components/headerNoAuth";
+import Footer from "@/components/layout/footer";
+import HeaderNoAuth from "@/components/layout/headerNoAuth";
 import Image from "next/image";
 import Link from "next/link";
 import svg from "../assets/Personal-finance.svg";

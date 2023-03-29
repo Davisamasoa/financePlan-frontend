@@ -1,8 +1,8 @@
 "use client";
 
 import ConfirmDelete from "@/components/confirmDelete";
-import Footer from "@/components/footer";
-import HeaderAuth from "@/components/headerAuth";
+import Footer from "@/components/layout/footer";
+import HeaderAuth from "@/components/layout/headerAuth";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IconType } from "react-icons";

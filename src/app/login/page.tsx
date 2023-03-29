@@ -1,12 +1,15 @@
 "use client";
 import Link from "next/link";
-import Footer from "@/components/footer";
-import HeaderNoAuth from "@/components/headerNoAuth";
+import Footer from "@/components/layout/footer";
+import HeaderNoAuth from "@/components/layout/headerNoAuth";
 import { useForm } from "react-hook-form";
 import { MdOutlineMailOutline, MdOutlineLock } from "react-icons/md";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import { IconType } from "react-icons/lib";
+import { useRouter } from "next/navigation";
+
+const api_url = process.env.NEXT_PUBLIC_API_URL;
 
 type FormData = {
 	email: string;
@@ -17,21 +20,29 @@ type EyeIconsType = {
 	password: IconType;
 };
 
+type fetchPromiseReturnType = {
+	success: boolean;
+	message: string;
+	token: string;
+};
+
 export default function Login() {
+	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm<FormData>();
 
-	const [serverError, setServerError] = useState<string>();
+	const [serverError, setServerError] = useState<string | null>();
 
 	const [PasswordEye, setPasswordEye] = useState<EyeIconsType>({
 		password: AiOutlineEye,
 	});
 
 	function onSubmit(data: FormData): void {
-		console.log(data);
+		login(data);
 	}
 
 	function showPassword(element: string): void {
@@ -42,6 +53,29 @@ export default function Login() {
 		} else {
 			password?.type ? (password.type = "password") : undefined;
 			setPasswordEye({ password: AiOutlineEye });
+		}
+	}
+
+	async function login(data: FormData) {
+		const body = { email: data.email, password: data.password };
+		const request: fetchPromiseReturnType = await fetch(`${api_url}/login`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(body),
+		}).then((res) => res.json());
+
+		if (!request.success) {
+			setServerError(request.message);
+			setTimeout(() => {
+				setServerError(null);
+			}, 5000);
+		} else {
+			const actualDate = new Date();
+			actualDate.setDate(actualDate.getDate() + 30);
+			const expireDate = actualDate.toUTCString();
+			document.cookie = `token=${request.token};expires=${expireDate};path=/`;
+
+			router.push(`/dashboard`);
 		}
 	}
 
@@ -107,13 +141,13 @@ export default function Login() {
 							{serverError ? serverError : ""}
 						</p>
 					</div>
-					<p>Esqueceu a senha?</p>
+					<Link href="/forgetPassword">Esqueceu a senha?</Link>
 					<button
 						type="submit"
 						onClick={handleSubmit(onSubmit)}
 						className="w-full bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-base"
 					>
-						Cadastrar
+						Entrar
 					</button>
 					<div className="text-center">
 						<p>Não tem uma conta?</p>

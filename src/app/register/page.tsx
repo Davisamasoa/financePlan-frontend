@@ -1,7 +1,7 @@
 "use client";
 
-import Footer from "@/components/footer";
-import HeaderNoAuth from "@/components/headerNoAuth";
+import Footer from "@/components/layout/footer";
+import HeaderNoAuth from "@/components/layout/headerNoAuth";
 import { useForm } from "react-hook-form";
 import { MdOutlineMailOutline, MdOutlineLock } from "react-icons/md";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
@@ -73,9 +73,6 @@ export default function Login() {
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(body),
 		}).then((res) => res.json());
-
-		console.log(request.message);
-		console.log(JSON.stringify(body));
 
 		if (!request.success) {
 			setServerError(request.message);
