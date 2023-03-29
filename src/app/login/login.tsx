@@ -8,6 +8,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useState } from "react";
 import { IconType } from "react-icons/lib";
 import { useRouter } from "next/navigation";
+import { PulseLoader } from "react-spinners";
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -32,6 +33,7 @@ export const metadata = {
 
 export default function Login() {
 	const router = useRouter();
+	const [loading, setLoading] = useState<boolean>(false);
 
 	const {
 		register,
@@ -61,6 +63,8 @@ export default function Login() {
 	}
 
 	async function login(data: FormData) {
+		setLoading(true);
+
 		const body = { email: data.email, password: data.password };
 		const request: fetchPromiseReturnType = await fetch(`${api_url}/login`, {
 			method: "POST",
@@ -69,6 +73,7 @@ export default function Login() {
 		}).then((res) => res.json());
 
 		if (!request.success) {
+			setLoading(false);
 			if (request.message == "O email não está verificado!") {
 				router.push(`/verifyEmail?email=${data.email}`);
 			} else {
@@ -154,7 +159,7 @@ export default function Login() {
 						onClick={handleSubmit(onSubmit)}
 						className="w-full bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-base"
 					>
-						Entrar
+						{loading ? <PulseLoader size={5} /> : "Entrar"}
 					</button>
 					<div className="text-center">
 						<p>Não tem uma conta?</p>

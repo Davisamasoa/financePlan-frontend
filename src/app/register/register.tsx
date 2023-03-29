@@ -10,6 +10,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { IconType } from "react-icons/lib";
 import { useRouter } from "next/navigation";
+import { PulseLoader } from "react-spinners";
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -41,7 +42,7 @@ export default function Register() {
 	} = useForm<FormData>();
 
 	const [serverError, setServerError] = useState<string | null>();
-
+	const [loading, setLoading] = useState<boolean>(false);
 	const [PasswordEye, setPasswordEye] = useState<EyeIconsType>({
 		password: AiOutlineEye,
 		confirmPassword: AiOutlineEye,
@@ -67,6 +68,7 @@ export default function Register() {
 	}
 
 	async function createUser(data: FormData) {
+		setLoading(true);
 		const body = { name: data.name, email: data.email, password: data.password };
 		const request: fetchPromiseReturnType = await fetch(`${api_url}/user`, {
 			method: "POST",
@@ -75,6 +77,7 @@ export default function Register() {
 		}).then((res) => res.json());
 
 		if (!request.success) {
+			setLoading(false);
 			setServerError(request.message);
 			setTimeout(() => {
 				setServerError(null);
@@ -201,7 +204,7 @@ export default function Register() {
 						onClick={handleSubmit(onSubmit)}
 						className="w-full bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80 transition duration-300 text-base"
 					>
-						Cadastrar
+						{loading ? <PulseLoader size={5} /> : "Cadastrar"}
 					</button>
 					<div className="text-center">
 						<p>Já tem uma conta?</p>
