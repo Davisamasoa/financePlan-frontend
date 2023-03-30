@@ -59,7 +59,7 @@ export default function CreateFinance({
 					e.preventDefault();
 					setShowCreateFinance(false);
 				}}
-				className="z-50 absolute  top-2/4 left-2/4 -translate-x-[50%] -translate-y-[50%]  sm:w-[360px] w-full p-10 rounded-lg bg-secondaryColor flex flex-col justify-center items-center gap-4"
+				className="z-50 absolute  top-2/4 left-2/4 -translate-x-[50%] -translate-y-[50%]  sm:w-[360px] w-[90%] p-10 rounded-lg bg-secondaryColor flex flex-col justify-center items-center gap-4"
 			>
 				<h1 className="mb-2  sm:text-4xl text-2xl text-center font-bold">Criar planilha financeira</h1>
 				<div className="flex flex-col gap-1 w-full">
