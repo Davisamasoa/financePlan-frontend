@@ -8,7 +8,7 @@ export default function Index() {
 	return (
 		<>
 			<HeaderNoAuth />
-			<main className="min-h-[80vh] flex justify-between items-center lg:flex-row flex-col sm:gap-0 gap-10">
+			<main className="min-h-[80vh] mt-10 lg:mt-0 flex justify-between items-center lg:flex-row flex-col sm:gap-0 gap-10">
 				<div className="flex justify-center items-start flex-col gap-5">
 					<h1 className="sm:text-4xl text-2xl font-bold">
 						Querendo organizar suas finanças? <br /> Use o financePlan!

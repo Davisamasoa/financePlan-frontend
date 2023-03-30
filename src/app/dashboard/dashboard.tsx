@@ -49,12 +49,12 @@ export default function Dashboard() {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((data) => data.json());
-		setFinanceData(data.message);
+		await setFinanceData(data.message);
+		setLoading(false);
 	};
 
 	useEffect(() => {
 		fetchFinanceData();
-		setLoading(false);
 	}, [fetchDataAgain]);
 
 	return (
