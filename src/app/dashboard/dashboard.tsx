@@ -50,19 +50,18 @@ export default function Dashboard() {
 			},
 		}).then((data) => data.json());
 		setFinanceData(data.message);
-
-		setLoading(false);
 	};
 
 	useEffect(() => {
 		fetchFinanceData();
+		setLoading(false);
 	}, [fetchDataAgain]);
 
 	return (
 		<>
 			<HeaderAuth />
-			<main className="min-h-[80vh] sm:mt-10 mt-0 flex flex-col justify-start items-center gap-20">
-				<div className="flex mt-40 flex-wrap justify-start sm:gap-0 gap-10 sm:justify-between items-center w-full">
+			<main className="min-h-[80vh] flex flex-col sm:justify-center justify-start items-center gap-20">
+				<div className="flex mt-20 sm:mt-0 flex-wrap items-center sm:gap-0 gap-10 justify-between w-full">
 					<h1 className="sm:text-5xl text-4xl font-bold">Dashboard</h1>
 					<button
 						onClick={() => setShowCreateFinance(true)}
@@ -82,6 +81,7 @@ export default function Dashboard() {
 						financeData?.map((finance) => {
 							return (
 								<>
+									{console.log(finance.expenses)}
 									<FinanceCard
 										key={finance.id}
 										name={finance.name}

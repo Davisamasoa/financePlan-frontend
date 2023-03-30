@@ -51,7 +51,7 @@ export default function FinanceCard({
 	const month: string = (fullMonth as Record<string, string>)[new Date(date).getMonth() + 1];
 
 	useEffect(() => {
-		// setExpenses(expensesData.reduce((acc, expense) => acc + expense.value, 0));
+		setExpenses(expensesData.reduce((acc, expense) => acc + expense.value, 0));
 		console.log(expensesData);
 	}, []);
 
@@ -71,7 +71,7 @@ export default function FinanceCard({
 	}
 
 	return (
-		<div className="px-8 h-80 w-80 flex justify-center flex-col gap-2 bg-secondaryColor rounded-lg">
+		<div className="px-8 h-80 sm:w-80 w-full flex justify-center flex-col gap-2 bg-secondaryColor rounded-lg">
 			<h1 className="text-center text-3xl font-bold">{name}</h1>
 			<span className="text-center -mt-2 mb-6">
 				{month} de {year}

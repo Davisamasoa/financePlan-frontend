@@ -69,7 +69,7 @@ export default function Goals({ financePlanId }: { financePlanId: string }) {
 	}, [fetchDataAgain]);
 
 	return (
-		<div className="w-full  p-6  md:pl-10 lg:px-14 gap-5  flex flex-col justify-start py-5 items-start  rounded-lg h-full bg-secondaryColor">
+		<div className="w-full  p-6  md:pl-10  gap-5  flex flex-col justify-start py-5 items-start  rounded-lg h-full bg-secondaryColor">
 			<div className="flex w-full justify-center items-center gap-2">
 				<h1 className="text-4xl font-bold">Metas</h1>
 				<button
