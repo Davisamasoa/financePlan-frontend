@@ -104,15 +104,15 @@ export default function Finance({ params }: { params: { id: string } }) {
 							<div className="w-full rounded-lg h-full bg-secondaryColor flex flex-col text-2xl justify-center items-start p-6 md:p-10 pr-4 lg:pl-14 gap-5">
 								<span className="font-light">
 									Entrada:
-									<span className="font-bold">
-										<span className="text-greenColor"> + </span>
+									<span className="font-bold text-greenColor">
+										<span className="text-greenColor"> +</span>
 										{budgetInformations.entry.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
 									</span>
 								</span>
 								<span className="font-light">
 									Saída:
-									<span className="font-bold">
-										<span className="text-redColor"> + </span>
+									<span className="font-bold text-redColor">
+										<span className="text-redColor"> -</span>
 										{budgetInformations.exit.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
 									</span>
 								</span>
@@ -127,7 +127,7 @@ export default function Finance({ params }: { params: { id: string } }) {
 											}`}
 										>
 											{" "}
-											+{" "}
+											{budgetInformations.entry - budgetInformations.exit < 0 ? "" : "+"}
 											{(budgetInformations.entry - budgetInformations.exit).toLocaleString("pt-br", {
 												style: "currency",
 												currency: "BRL",
