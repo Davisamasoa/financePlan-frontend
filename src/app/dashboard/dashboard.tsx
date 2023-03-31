@@ -39,9 +39,10 @@ export default function Dashboard() {
 	const [showCreateFinance, setShowCreateFinance] = useState<boolean>();
 	const [financeData, setFinanceData] = useState<financeData[]>([]);
 	const [fetchDataAgain, setFetchDataAgain] = useState<boolean>();
-	const [loading, setLoading] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>();
 
 	const fetchFinanceData = async () => {
+		setLoading(true);
 		const token = getCookie("token");
 		const userId = getUserId();
 		const data: responseFetchFinance = await fetch(`${api_url}/financePlan/${userId}`, {

@@ -52,9 +52,10 @@ export default function Finance({ params }: { params: { id: string } }) {
 
 	const [fetchDataAgain, setFetchDataAgain] = useState<boolean>();
 	const [editFinancePlan, setEditFinancePlan] = useState<boolean | undefined>(false);
-	const [loading, setLoading] = useState<boolean>(true);
+	const [loading, setLoading] = useState<boolean>();
 
 	const fetchFinanceData = async () => {
+		setLoading(true);
 		const token = getCookie("token");
 		const data: responseFetchFinance = await fetch(`${api_url}/financePlan/id/${params.id}`, {
 			headers: {
