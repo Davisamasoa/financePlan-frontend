@@ -40,6 +40,20 @@ type responseFetchFinance = {
 	message: financeData;
 };
 
+const fullMonth = {
+	1: "Janeiro",
+	2: "Fevereiro",
+	3: "Março",
+	4: "Abril",
+	5: "Maio",
+	6: "Junho",
+	7: "Julho",
+	8: "Agosto",
+	9: "Setembro",
+	10: "Outubro",
+	11: "Novembro",
+	12: "Dezembro",
+};
 const primaryColor =
 	(resolveConfig(tailwindConfig)?.theme?.colors?.primaryColor as string | undefined) || "white";
 
@@ -49,6 +63,10 @@ export default function Finance({ params }: { params: { id: string } }) {
 		exit: 0,
 	});
 	const [title, setTitle] = useState<string>();
+	const [date, setDate] = useState<{ month: string; year: number }>({
+		month: "",
+		year: 2023,
+	});
 
 	const [fetchDataAgain, setFetchDataAgain] = useState<boolean>();
 	const [editFinancePlan, setEditFinancePlan] = useState<boolean | undefined>(false);
@@ -62,6 +80,11 @@ export default function Finance({ params }: { params: { id: string } }) {
 				Authorization: `Bearer ${token}`,
 			},
 		}).then((data) => data.json());
+
+		setDate({
+			month: (fullMonth as Record<string, string>)[new Date(data.message.date).getMonth() + 1],
+			year: new Date(data.message.date).getFullYear(),
+		});
 		setBudgetInformations({ ...budgetInformations, entry: +data.message.entry });
 		setTitle(data.message.name);
 		setLoading(false);
@@ -91,7 +114,9 @@ export default function Finance({ params }: { params: { id: string } }) {
 					<div className="flex justify-center items-center mb-10 mt-10 sm:mt-0">
 						<div className="w-full flex justify-center items-center flex-col">
 							<h1 className="text-5xl font-bold">{title}</h1>
-							<span className="text-center mt-3 sm:mt-0">Março 2023</span>
+							<span className="text-center mt-3 sm:mt-0">
+								{date.month} de {date.year}
+							</span>
 						</div>
 						<button
 							onClick={() => setEditFinancePlan(true)}
