@@ -101,7 +101,8 @@ export default function Finance({ params }: { params: { id: string } }) {
 				<div className="h-[80vh] w-full flex justify-center items-center">
 					<ScaleLoader color={primaryColor} />
 				</div>
-			) : (
+			) : null}
+			{!loading ? (
 				<>
 					<div className="w-full mt-10">
 						<Link href={"/dashboard"}>
@@ -192,7 +193,7 @@ export default function Finance({ params }: { params: { id: string } }) {
 						/>
 					) : null}
 				</>
-			)}
+			) : null}
 
 			<Footer />
 		</>
