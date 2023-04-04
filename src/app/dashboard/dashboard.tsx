@@ -39,7 +39,7 @@ export default function Dashboard() {
 	const [showCreateFinance, setShowCreateFinance] = useState<boolean>();
 	const [financeData, setFinanceData] = useState<financeData[]>([]);
 	const [fetchDataAgain, setFetchDataAgain] = useState<boolean>();
-	const [loading, setLoading] = useState<boolean>();
+	const [loading, setLoading] = useState<boolean>(true);
 
 	const fetchFinanceData = async () => {
 		setLoading(true);

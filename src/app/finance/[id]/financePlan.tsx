@@ -70,7 +70,7 @@ export default function Finance({ params }: { params: { id: string } }) {
 
 	const [fetchDataAgain, setFetchDataAgain] = useState<boolean>();
 	const [editFinancePlan, setEditFinancePlan] = useState<boolean | undefined>(false);
-	const [loading, setLoading] = useState<boolean>();
+	const [loading, setLoading] = useState<boolean>(true);
 
 	const fetchFinanceData = async () => {
 		setLoading(true);
@@ -101,8 +101,7 @@ export default function Finance({ params }: { params: { id: string } }) {
 				<div className="h-[80vh] w-full flex justify-center items-center">
 					<ScaleLoader color={primaryColor} />
 				</div>
-			) : null}
-			{!loading ? (
+			) : (
 				<>
 					<div className="w-full mt-10">
 						<Link href={"/dashboard"}>
@@ -193,7 +192,7 @@ export default function Finance({ params }: { params: { id: string } }) {
 						/>
 					) : null}
 				</>
-			) : null}
+			)}
 
 			<Footer />
 		</>
