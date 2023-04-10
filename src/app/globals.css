@@ -41,11 +41,28 @@ ul::-webkit-scrollbar-track {
 ul::-webkit-scrollbar-thumb {
 	background-color: var(--bgColor); /* color of the scroll thumb */
 	border-radius: 20px; /* roundness of the scroll thumb */
-	border: 3px solid var(--secondaryColorr); /* creates padding around scroll thumb */
+	border: 1px solid var(--secondaryColorr); /* creates padding around scroll thumb */
 }
 
 ul::-webkit-scrollbar {
 	width: 12px;
+}
+
+.expense::-webkit-scrollbar-track {
+	border-radius: 5px;
+
+	background: var(--bgColor); /* color of the tracking area */
+}
+
+.expense::-webkit-scrollbar-thumb {
+	background-color: var(--textColor); /* color of the scroll thumb */
+	border-radius: 20px; /* roundness of the scroll thumb */
+
+	border: 1px solid var(--secondaryColorr); /* creates padding around scroll thumb */
+}
+
+.expense::-webkit-scrollbar {
+	height: 5px;
 }
 
 .chart {

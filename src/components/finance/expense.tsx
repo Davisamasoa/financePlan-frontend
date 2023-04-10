@@ -87,11 +87,17 @@ export default function Expenses({ financePlanId, budgetInformations, setBudgetI
 				</button>
 			</div>
 
-			<ul className="text-xl flex flex-col gap-2 max-h-[168px] lg:max-h-[424px] w-full overflow-y-auto pr-6">
+			<ul
+				className="text-xl flex flex-col gap-2 max-h-[168px]
+			md:max-h-[424px]
+			lg:max-h-[424px] w-full overflow-y-auto pr-6"
+			>
 				{expenses.map((expense, index) => (
 					<>
 						<li key={expense.id} className="flex flex-wrap gap-2 justify-between items-center">
-							<span>• {expense.name}</span>
+							<span className="block max-w-[150px] overflow-x-auto whitespace-nowrap expense">
+								• {expense.name}
+							</span>
 							<span>-</span>
 							<span className="font-bold">
 								{expense.value.toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
