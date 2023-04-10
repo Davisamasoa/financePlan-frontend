@@ -166,10 +166,7 @@ export default function Finance({ params }: { params: { id: string } }) {
 							<div className="w-full p-6 min-h-[308px]   gap-5 flex justify-start items-center flex-col  rounded-lg h-full bg-secondaryColor">
 								<h1 className="text-4xl font-bold">Economia</h1>
 
-								<Chart
-									balance={budgetInformations.entry - budgetInformations.exit}
-									exit={budgetInformations.exit}
-								/>
+								<Chart entry={budgetInformations.entry} exit={budgetInformations.exit} />
 							</div>
 						</div>
 
