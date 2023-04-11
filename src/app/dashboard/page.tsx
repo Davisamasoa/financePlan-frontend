@@ -82,7 +82,6 @@ export default function Dashboard() {
 						financeData?.map((finance) => {
 							return (
 								<>
-									{console.log(finance.expenses)}
 									<FinanceCard
 										key={finance.id}
 										name={finance.name}

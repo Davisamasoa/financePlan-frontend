@@ -3,5 +3,5 @@ export const metadata = {
 };
 
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
-	return <>{children}</>;
+	return children;
 }

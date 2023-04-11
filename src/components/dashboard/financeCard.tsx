@@ -52,7 +52,6 @@ export default function FinanceCard({
 
 	useEffect(() => {
 		setExpenses(expensesData.reduce((acc, expense) => acc + expense.value, 0));
-		console.log(expensesData);
 	}, []);
 
 	async function deleteFinance(financePlanId: number) {

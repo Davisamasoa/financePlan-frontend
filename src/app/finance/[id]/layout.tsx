@@ -3,5 +3,5 @@ export const metadata = {
 };
 
 export default function FinanceLayout({ children }: { children: React.ReactNode }) {
-	return <>{children}</>;
+	return children;
 }
