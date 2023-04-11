@@ -27,10 +27,6 @@ type fetchPromiseReturnType = {
 	token: string;
 };
 
-export const metadata = {
-	title: "Login",
-};
-
 export default function Login() {
 	const router = useRouter();
 	const [loading, setLoading] = useState<boolean>(false);
