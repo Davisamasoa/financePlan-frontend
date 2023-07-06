@@ -6,6 +6,8 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { useState } from "react";
 
 import { ReadonlyURLSearchParams, useRouter, useSearchParams } from "next/navigation";
+import { PulseLoader } from "react-spinners";
+import { set } from "react-hook-form";
 
 const api_url = process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,6 +18,7 @@ type fetchPromiseReturnType = {
 };
 
 export default function VerifyEmail() {
+	const [loading, setLoading] = useState<boolean>(false);
 	const router = useRouter();
 	const searchParams: ReadonlyURLSearchParams = useSearchParams();
 	const queryEmail: any = searchParams.get("email");
@@ -29,6 +32,7 @@ export default function VerifyEmail() {
 	const [serverError, setServerError] = useState<string | null>();
 
 	async function sendCodeToEmailFn() {
+		setLoading(true);
 		const body = { email: emailinputValue };
 
 		const request: fetchPromiseReturnType = await fetch(`${api_url}/verifyEmail`, {
@@ -37,6 +41,7 @@ export default function VerifyEmail() {
 			body: JSON.stringify(body),
 		}).then((res) => res.json());
 
+		setLoading(false);
 		if (!request.success) {
 			setServerError(request.message);
 			setTimeout(() => {
@@ -53,6 +58,7 @@ export default function VerifyEmail() {
 	}
 
 	async function login() {
+		setLoading(true);
 		const body = { email: emailinputValue, code: codeInputvalue };
 		const request: fetchPromiseReturnType = await fetch(`${api_url}/verifyEmail`, {
 			method: "PUT",
@@ -61,6 +67,7 @@ export default function VerifyEmail() {
 		}).then((res) => res.json());
 
 		if (!request.success) {
+			setLoading(false);
 			setServerError(request.message);
 			setTimeout(() => {
 				setServerError(null);
@@ -119,7 +126,7 @@ export default function VerifyEmail() {
 								onClick={sendCodeToEmailFn}
 								className="w-full bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-base"
 							>
-								Enviar código de verificação
+								{loading ? <PulseLoader size={5} /> : "	Enviar código de verificação"}
 							</button>
 						</>
 					) : (
@@ -128,6 +135,7 @@ export default function VerifyEmail() {
 								<label htmlFor="code">Código:</label>
 								<div className="relative">
 									<input
+										type="number"
 										id="code"
 										onChange={handleCodeInputValue}
 										value={codeInputvalue}
@@ -150,7 +158,7 @@ export default function VerifyEmail() {
 								onClick={login}
 								className="w-full bg-primaryColor border-2 border-primaryColor py-1 px-6 text-bgColor rounded-full sm:hover:opacity-80  transition duration-300 text-base"
 							>
-								Verificar
+								{loading ? <PulseLoader size={5} /> : "Verificar"}
 							</button>
 							<button
 								type="submit"
