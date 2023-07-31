@@ -71,7 +71,7 @@ export default function Dashboard() {
 						Criar +
 					</button>
 				</div>
-				<div className="w-full flex justify-center lg:justify-start items-center flex-wrap gap-5 ">
+				<div className="w-full flex justify-center lg:justify-start items-center flex-wrap gap-5 min-h-[320px]">
 					{loading ? (
 						<>
 							<div className="w-full mt-20 flex justify-center items-center">

@@ -9,12 +9,12 @@ export default function Index() {
 		<>
 			<HeaderNoAuth />
 			<main className="min-h-[80vh] mt-10 lg:mt-0 flex justify-between items-center lg:flex-row flex-col sm:gap-0 gap-10">
-				<div className="flex justify-center items-start flex-col gap-5">
+				<div className="flex justify-center items-start flex-col gap-5 w-full md:w-fit">
 					<h1 className="sm:text-4xl text-2xl font-bold">
 						Querendo organizar suas finanças? <br /> Use o financePlan!
 					</h1>
-					<p className="text-white sm:text-2xl font-light">
-						Aqui você pode organizar suas finanças sem precisar de planinha. <br /> Se organize para sobrar
+					<p className="text-white sm:text-xl font-light">
+						Aqui você pode organizar suas finanças sem precisar de planilha. <br /> Se organize para sobrar
 						aquele dinheirinho no final do mês <br /> para conquistar seus objetivos.
 					</p>
 					<Link
@@ -29,7 +29,7 @@ export default function Index() {
 						className="sm:max-w-md w-full"
 						src={svg}
 						alt="imagem de um homem segurando um cofre de porquinho"
-						width={500}
+						width={600}
 					/>
 				</figure>
 			</main>
