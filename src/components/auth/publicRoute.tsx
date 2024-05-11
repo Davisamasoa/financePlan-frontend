@@ -11,11 +11,10 @@ export default function PublicRoute({ children }: { children: ReactNode }) {
 
 	useEffect(() => {
 		const isAuthenticated = getCookie("token");
-		if (pathName !== "/" && isAuthenticated) {
-			push(APP_ROUTES.private.dashboard.name);
-		}
+
 		if (isAuthenticated) {
 			setIsAuthenticated(true);
+			push(APP_ROUTES.private.dashboard.name);
 		}
 	}, [isAuthenticated, push, pathName]);
 
