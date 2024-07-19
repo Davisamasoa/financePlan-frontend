@@ -65,6 +65,7 @@ export default function Login() {
 		const request: fetchPromiseReturnType = await fetch(`${api_url}/login`, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
+
 			body: JSON.stringify(body),
 		}).then((res) => res.json());
 
